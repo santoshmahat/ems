@@ -1,49 +1,69 @@
-import React from 'react';
+import React from "react";
+import { Button, Row, Col, Typography, Input, Form } from "antd";
+const { Title } = Typography;
+const { Item } = Form;
 
-const CreateEmployeeForm = (props) => (
-  <div>
-    <form>
-      <h2>Create Employee Form</h2>
-      <div className="row">
-        <div className="col-6">
-          <div className="form-group">
-            <input onChange={props.handleInputChange} type="text" name="firstName" id="firstName" className="form-control" placeholder="First Name" />
-          </div>
-        </div>
-        <div className="col-6">
-          <div className="form-group">
-            <input onChange={props.handleInputChange}  type="text" name="lastName" id="lastName" className="form-control" placeholder="Last Name" />
-          </div>
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="col-6">
-          <div className="form-group">
-            <input onChange={props.handleInputChange}  type="text" name="location" id="location" className="form-control" placeholder="Location" />
-          </div>
-        </div>
-        <div className="col-6">
-          <div className="form-group">
-            <input onChange={props.handleInputChange}  type="text" name="joinDate" id="joinDate" className="form-control" placeholder="Join Date" />
-          </div>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-6">
-          <div className="form-group">
-            <input onChange={props.handleInputChange}  type="file" name="image" id="image" className="form-control" placeholder="Upload Image" />
-          </div>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-12">
-          <div className="form-group">
-            <button onClick={props.saveCreateEmployeeForm} type="button" className="btn btn-primary" id="btnSave">Save</button>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-)
+const CreateEmployeeForm = props => (
+  <Form>
+    <Title level={2}>Create Employee Form</Title>
+    <Item>
+      <Row gutter={40}>
+        <Col md={12}>
+          <Input
+            name="firstName"
+            onChange={props.handleInputChange}
+            placeholder="First Name"
+          />
+        </Col>
+        <Col md={12}>
+          <Input
+            name="lastName"
+            onChange={props.handleInputChange}
+            placeholder="Last Name"
+          />
+        </Col>
+      </Row>
+    </Item>
+    <Item>
+      <Row gutter={40}>
+        <Col md={12}>
+          <Input
+            name="location"
+            onChange={props.handleInputChange}
+            placeholder="Location"
+          />
+        </Col>
+        <Col md={12}>
+          <Input
+            type="date"
+            name="joinDate"
+            onChange={props.handleInputChange}
+            placeholder="Join Date"
+          />
+        </Col>
+      </Row>
+    </Item>
+    <Item>
+      <Row>
+        <Col md={24}>
+          <Input
+            type="file"
+            name="image"
+            onChange={props.handleInputChange}
+            placeholder="Upload Image"
+          />
+        </Col>
+      </Row>
+    </Item>
+    <Item>
+      <Row>
+        <Col md={12}>
+          <Button onClick={props.saveCreateEmployeeForm} type="primary">
+            Save
+          </Button>
+        </Col>
+      </Row>
+    </Item>
+  </Form>
+);
 export default CreateEmployeeForm;
