@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import CreateEmployeeForm from "../components/CreateEmployeeForm";
 import EmployeeTable from "../components/EmployeeTable";
-
+import { EmployeeWrapperStyle, InnerDiv } from "../style/index";
+import { Link } from "react-router-dom";
 class CreateEmployee extends Component {
   constructor(props) {
     super(props);
@@ -65,17 +66,18 @@ class CreateEmployee extends Component {
   render() {
     const { employees } = this.state;
     return (
-      <div>
+      <EmployeeWrapperStyle>
+        <Link to="/list"> List Employee</Link>
         <CreateEmployeeForm
           stateValue={this.state}
           saveCreateEmployeeForm={this.saveCreateEmployeeForm}
           handleInputChange={this.handleInputChange}
         />
-        <EmployeeTable
+        {/* <EmployeeTable
           employees={employees}
           deleteEmployee={this.deleteEmployee}
-        />
-      </div>
+        /> */}
+      </EmployeeWrapperStyle>
     );
   }
 }
