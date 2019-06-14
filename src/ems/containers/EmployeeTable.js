@@ -1,62 +1,81 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { Spin, message } from "antd";
 
-export default props => (
-  <div>
-    <Link to="/"> Back To Home</Link>
-    <Link to="/create"> Create</Link>
-    <table className="table">
-      <thead>
-        <tr>
-          <td>First Name</td>
-          <td>Last Name</td>
-          <td>Location</td>
-          <td>Joined Date</td>
-          <td>Image</td>
-          <td>Actions</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Arjun</td>
-          <td>Ghimire</td>
-          <td>Kathmandu</td>
-          <td />
-          <td>
-            <img src="" style={{ height: "40px", width: "40px" }} />
-          </td>
-          <td>
-            <button
-              type="button"
-              className="btn btn-danger"
-              // onClick={() => props.deleteEmployee(employe.firstName)}
-            >
-              Delete
-            </button>
-            <Link to="/detail/1">
-              <button className="btn btn-primary" type="button">
-                View
-              </button>
-            </Link>
-          </td>
-        </tr>
+const url = "https://caf5c3f9.ngrok.io/api/v1/contacts/";
 
-        {/* {props.employees.map((employe) => {
-        return (
-          <tr key={employe.firstName}>
-            <td>{employe.firstName}</td>
-            <td>{employe.lastName}</td>
-            <td>{employe.location}</td>
-            <td>{employe.joinDate}</td>
-            <td><img src={employe.image} style={{height:"40px", width:"40px"}}/></td>
-            <td>
-              <button type="button" className="btn btn-danger" onClick={()=>props.deleteEmployee(employe.firstName)}>Delete</button>
-            </td>
-          </tr>
-        )
+class EmployeeTable extends Component {
+  constructor() {
+    super();
+    this.state = {
+      employees: [],
+      loading: true
+    };
+  }
+
+  componentDidMount() {
+    let self = this;
+    axios
+      .get(url)
+      .then(function(response) {
+        self.setState({ employees: response.data.data, loading: false });
+        message.success("Data loading successfully");
       })
-      } */}
-      </tbody>
-    </table>
-  </div>
-);
+      .catch(function(error) {
+        self.setState({ loading: false });
+        message.error("Failed to load data");
+      });
+  }
+
+  handleDelete = id => {
+    console.log("HELLO", id);
+  };
+
+  render() {
+    console.log("EMPLOYEES", this.state.employees);
+    return (
+      <div>
+        <Link to="/"> Back To Home</Link>
+        <Link to="/create"> Create</Link>
+        <Spin spinning={this.state.loading}>
+          <table className="table">
+            <thead>
+              <tr>
+                <td>Fullname</td>
+                <td>Phone</td>
+                <td>Actions</td>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.employees.map(employee => {
+                return (
+                  <tr key={employee.id}>
+                    <td>{employee.fullname}</td>
+                    <td>{employee.phone}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => this.handleDelete(employee.id)}
+                      >
+                        Delete
+                      </button>
+                      <Link to={`/detail/${employee.id}`}>
+                        <button className="btn btn-primary" type="button">
+                          View
+                        </button>
+                      </Link>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </Spin>
+      </div>
+    );
+  }
+}
+
+export default EmployeeTable;
