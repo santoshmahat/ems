@@ -6,8 +6,8 @@ export default class DetailEmployee extends Component {
     console.log("PROPS", this.props);
     return (
       <div>
-        <Link to="/"> Create Employee</Link>
-        <Link to="/list"> List Employee</Link>
+        <Link to="/create"> Create Employee</Link>
+        <Link to="/"> List Employee</Link>
         <br />
         Details Page
       </div>

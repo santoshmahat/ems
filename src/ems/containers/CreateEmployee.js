@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CreateEmployeeForm from "../components/CreateEmployeeForm";
-import EmployeeTable from "../components/EmployeeTable";
+import EmployeeTable from "./EmployeeTable";
 import { EmployeeWrapperStyle, InnerDiv } from "../style/index";
 import { Link } from "react-router-dom";
 class CreateEmployee extends Component {
@@ -67,7 +67,7 @@ class CreateEmployee extends Component {
     const { employees } = this.state;
     return (
       <EmployeeWrapperStyle>
-        <Link to="/list"> List Employee</Link>
+        <Link to="/"> List Employee</Link>
         <CreateEmployeeForm
           stateValue={this.state}
           saveCreateEmployeeForm={this.saveCreateEmployeeForm}

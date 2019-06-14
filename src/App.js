@@ -1,14 +1,14 @@
 import React from "react";
 import CreateEmployee from "./ems/containers/CreateEmployee";
 import { Route } from "react-router-dom";
-import EmployeeTable from "./ems/components/EmployeeTable";
-import DetailEmployee from "./ems/components/DetailEmployee";
+import EmployeeTable from "./ems/containers/EmployeeTable";
+import DetailEmployee from "./ems/containers/DetailEmployee";
 
 function App() {
   return (
     <div>
-      <Route exact path="/" component={CreateEmployee} />
-      <Route path="/list" component={EmployeeTable} />
+      <Route exact path="/" component={EmployeeTable} />
+      <Route path="/create" component={CreateEmployee} />
       <Route path="/detail/:categoryId" component={DetailEmployee} />
     </div>
   );

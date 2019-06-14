@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export default props => (
   <div>
     <Link to="/"> Back To Home</Link>
+    <Link to="/create"> Create</Link>
     <table className="table">
       <thead>
         <tr>
