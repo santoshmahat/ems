@@ -1,6 +1,6 @@
 import React from "react";
-import CreateEmployee from "./ems/containers/CreateEmployee";
 import { Route } from "react-router-dom";
+import CreateEmployee from "./ems/containers/CreateEmployee";
 import EmployeeTable from "./ems/containers/EmployeeTable";
 import DetailEmployee from "./ems/containers/DetailEmployee";
 
