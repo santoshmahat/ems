@@ -10,51 +10,21 @@ const CreateEmployeeForm = props => (
       <Row gutter={40}>
         <Col md={12}>
           <Input
-            name="firstName"
+            name="fullname"
             onChange={props.handleInputChange}
-            placeholder="First Name"
+            placeholder="Full Name"
           />
         </Col>
         <Col md={12}>
           <Input
-            name="lastName"
+            name="phone"
             onChange={props.handleInputChange}
-            placeholder="Last Name"
+            placeholder="Phone"
           />
         </Col>
       </Row>
     </Item>
-    <Item>
-      <Row gutter={40}>
-        <Col md={12}>
-          <Input
-            name="location"
-            onChange={props.handleInputChange}
-            placeholder="Location"
-          />
-        </Col>
-        <Col md={12}>
-          <Input
-            type="date"
-            name="joinDate"
-            onChange={props.handleInputChange}
-            placeholder="Join Date"
-          />
-        </Col>
-      </Row>
-    </Item>
-    <Item>
-      <Row>
-        <Col md={24}>
-          <Input
-            type="file"
-            name="image"
-            onChange={props.handleInputChange}
-            placeholder="Upload Image"
-          />
-        </Col>
-      </Row>
-    </Item>
+
     <Item>
       <Row>
         <Col md={12}>

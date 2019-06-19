@@ -3,68 +3,43 @@ import CreateEmployeeForm from "../components/CreateEmployeeForm";
 import EmployeeTable from "./EmployeeTable";
 import { EmployeeWrapperStyle, InnerDiv } from "../style/index";
 import { Link } from "react-router-dom";
+import axios from "axios";
+const url = "https://supremecourtreactapp.herokuapp.com/api/v1/contacts";
+
 class CreateEmployee extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: "",
-      lastName: "",
-      location: "",
-      joinDate: "",
-      image: "",
-      employees: []
+      fullname: "",
+      phone: ""
     };
   }
 
   handleInputChange = event => {
-    if (event.target.name === "image") {
-      this.setState({
-        image:
-          event.target.files && event.target.files[0]
-            ? URL.createObjectURL(event.target.files[0])
-            : ""
-      });
-    } else {
-      this.setState({
-        [event.target.name]: event.target.value
-      });
-    }
-  };
-
-  deleteEmployee = firstName => {
-    const { employees } = this.state;
-    const newEmployees = employees.filter(
-      employee => employee.firstName !== firstName
-    );
     this.setState({
-      employees: newEmployees
+      [event.target.name]: event.target.value
     });
   };
 
   saveCreateEmployeeForm = () => {
-    const {
-      firstName,
-      lastName,
-      location,
-      joinDate,
-      image,
-      employees
-    } = this.state;
-    const employee = {
-      firstName,
-      lastName,
-      location,
-      joinDate,
-      image
-    };
-    employees.push(employee);
-    this.setState({
-      employees: employees
-    });
+    const { fullname, phone } = this.state;
+    let self = this;
+    axios
+      .post(url, {
+        fullname: fullname,
+        phone: phone
+      })
+      .then(function(response) {
+        console.log(response);
+        self.props.history.push("/");
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   };
 
   render() {
-    const { employees } = this.state;
+    console.log("DATA", this.props);
     return (
       <EmployeeWrapperStyle>
         <Link to="/"> List Employee</Link>
@@ -73,10 +48,6 @@ class CreateEmployee extends Component {
           saveCreateEmployeeForm={this.saveCreateEmployeeForm}
           handleInputChange={this.handleInputChange}
         />
-        {/* <EmployeeTable
-          employees={employees}
-          deleteEmployee={this.deleteEmployee}
-        /> */}
       </EmployeeWrapperStyle>
     );
   }
