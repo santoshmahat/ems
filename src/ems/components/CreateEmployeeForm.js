@@ -10,6 +10,7 @@ const CreateEmployeeForm = props => (
       <Row gutter={40}>
         <Col md={12}>
           <Input
+            value={props.setValue.fullname}
             name="fullname"
             onChange={props.handleInputChange}
             placeholder="Full Name"
@@ -17,6 +18,7 @@ const CreateEmployeeForm = props => (
         </Col>
         <Col md={12}>
           <Input
+            value={props.setValue.phone}
             name="phone"
             onChange={props.handleInputChange}
             placeholder="Phone"
@@ -28,9 +30,15 @@ const CreateEmployeeForm = props => (
     <Item>
       <Row>
         <Col md={12}>
-          <Button onClick={props.saveCreateEmployeeForm} type="primary">
-            Save
-          </Button>
+          {props.isEdit ? (
+            <Button onClick={props.saveCreateEmployeeForm} type="primary">
+              Update
+            </Button>
+          ) : (
+            <Button onClick={props.saveCreateEmployeeForm} type="primary">
+              Save
+            </Button>
+          )}
         </Col>
       </Row>
     </Item>

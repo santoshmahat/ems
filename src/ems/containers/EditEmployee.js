@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import { EmployeeWrapperStyle } from "../style/index";
+import CreateEmployeeForm from "../components/CreateEmployeeForm";
 import { Link } from "react-router-dom";
 import axios from "axios";
-const url = "https://supremecourtreactapp.herokuapp.com/api/v1/contacts";
 
-export default class DetailEmployee extends Component {
+class EditEmployee extends Component {
   constructor() {
     super();
     this.state = {
@@ -17,28 +18,23 @@ export default class DetailEmployee extends Component {
     axios
       .get(`https://supremecourtreactapp.herokuapp.com/api/v1/contacts/${id}`)
       .then(function(response) {
-        // handle success
-        console.log(response);
         self.setState({ employeeDetail: response.data.data });
       })
       .catch(function(error) {
-        // handle error
         console.log(error);
       });
   }
 
   render() {
-    console.log("PROPS", this.props);
+    console.log("STATE VALUE", this.state.employeeDetail);
     const { employeeDetail } = this.state;
     return (
-      <div>
-        <Link to="/create"> Create Employee</Link>
+      <EmployeeWrapperStyle>
         <Link to="/"> List Employee</Link>
-        <br />
-        Details Page
-        <h1>FullName :{employeeDetail.fullname}</h1>
-        <p>Phone:{employeeDetail.phone}</p>
-      </div>
+        <CreateEmployeeForm isEdit={true} setValue={employeeDetail} />
+      </EmployeeWrapperStyle>
     );
   }
 }
+
+export default EditEmployee;
