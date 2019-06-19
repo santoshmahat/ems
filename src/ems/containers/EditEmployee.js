@@ -1,12 +1,10 @@
 import React, { Component } from "react";
+import { EmployeeWrapperStyle } from "../style/index";
 import CreateEmployeeForm from "../components/CreateEmployeeForm";
-import EmployeeTable from "./EmployeeTable";
-import { EmployeeWrapperStyle, InnerDiv } from "../style/index";
 import { Link } from "react-router-dom";
 import axios from "axios";
-const url = "https://supremecourtreactapp.herokuapp.com/api/v1/contacts";
 
-class CreateEmployee extends Component {
+class EditEmployee extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,11 +19,29 @@ class CreateEmployee extends Component {
     });
   };
 
-  saveCreateEmployeeForm = () => {
-    const { fullname, phone } = this.state;
+  componentDidMount() {
+    const id = this.props.match.params.employeeId;
     let self = this;
     axios
-      .post(url, {
+      .get(`https://supremecourtreactapp.herokuapp.com/api/v1/contacts/${id}`)
+      .then(function(response) {
+        const employeeDetail = response.data.data;
+        self.setState({
+          fullname: employeeDetail.fullname,
+          phone: employeeDetail.phone
+        });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
+
+  updateCreateEmployeeForm = () => {
+    const { fullname, phone } = this.state;
+    let self = this;
+    const id = this.props.match.params.employeeId;
+    axios
+      .put(`https://supremecourtreactapp.herokuapp.com/api/v1/contacts/${id}`, {
         fullname,
         phone
       })
@@ -39,13 +55,13 @@ class CreateEmployee extends Component {
   };
 
   render() {
-    console.log("DATA", this.props);
     return (
       <EmployeeWrapperStyle>
         <Link to="/"> List Employee</Link>
         <CreateEmployeeForm
+          isEdit={true}
           setValue={this.state}
-          saveCreateEmployeeForm={this.saveCreateEmployeeForm}
+          updateCreateEmployeeForm={this.updateCreateEmployeeForm}
           handleInputChange={this.handleInputChange}
         />
       </EmployeeWrapperStyle>
@@ -53,4 +69,4 @@ class CreateEmployee extends Component {
   }
 }
 
-export default CreateEmployee;
+export default EditEmployee;
