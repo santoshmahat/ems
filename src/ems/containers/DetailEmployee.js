@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { Card } from "antd";
+
 const url = "https://supremecourtreactapp.herokuapp.com/api/v1/contacts";
 
 export default class DetailEmployee extends Component {
@@ -35,9 +37,11 @@ export default class DetailEmployee extends Component {
         <Link to="/create"> Create Employee</Link>
         <Link to="/"> List Employee</Link>
         <br />
-        Details Page
-        <h1>FullName :{employeeDetail.fullname}</h1>
-        <p>Phone:{employeeDetail.phone}</p>
+
+        <Card title="Employee Detail" style={{ width: 300 }}>
+          <h1>FullName :{employeeDetail.fullname}</h1>
+          <p>Phone:{employeeDetail.phone}</p>
+        </Card>
       </div>
     );
   }

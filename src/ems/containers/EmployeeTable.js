@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Spin, message } from "antd";
+import { Spin, message, Popconfirm } from "antd";
 
 const url = "https://supremecourtreactapp.herokuapp.com/api/v1/contacts";
 
@@ -72,13 +72,16 @@ class EmployeeTable extends Component {
                     <td>{employee.fullname}</td>
                     <td>{employee.phone}</td>
                     <td>
-                      <button
-                        type="button"
-                        className="btn btn-danger"
-                        onClick={() => this.handleDelete(employee.id)}
+                      <Popconfirm
+                        title="Are you sure delete this task?"
+                        onConfirm={() => this.handleDelete(employee.id)}
+                        okText="Yes"
+                        cancelText="No"
                       >
-                        Delete
-                      </button>
+                        <button type="button" className="btn btn-danger">
+                          Delete
+                        </button>
+                      </Popconfirm>
                       <Link to={`/detail/${employee.id}`}>
                         <button className="btn btn-primary" type="button">
                           View
