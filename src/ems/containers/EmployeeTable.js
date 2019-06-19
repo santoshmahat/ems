@@ -29,11 +29,29 @@ class EmployeeTable extends Component {
   }
 
   handleDelete = id => {
-    console.log("HELLO", id);
+    const filterEmployees = this.state.employees.filter(employee => {
+      return employee.id !== id;
+    });
+    this.setState({
+      employees: filterEmployees
+    });
+    let self = this;
+    axios
+      .delete(
+        `https://supremecourtreactapp.herokuapp.com/api/v1/contacts/${id}`
+      )
+      .then(function(response) {
+        self.setState({
+          loading: false
+        });
+        message.success("data loading Successfully");
+      })
+      .catch(function(error) {
+        self.setState({ loading: false });
+      });
   };
 
   render() {
-    console.log("EMPLOYEES", this.state.employees);
     return (
       <div>
         <Link to="/"> Back To Home</Link>
