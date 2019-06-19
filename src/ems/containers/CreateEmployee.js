@@ -26,8 +26,8 @@ class CreateEmployee extends Component {
     let self = this;
     axios
       .post(url, {
-        fullname: fullname,
-        phone: phone
+        fullname,
+        phone
       })
       .then(function(response) {
         console.log(response);
@@ -44,7 +44,7 @@ class CreateEmployee extends Component {
       <EmployeeWrapperStyle>
         <Link to="/"> List Employee</Link>
         <CreateEmployeeForm
-          stateValue={this.state}
+          setValue={this.state}
           saveCreateEmployeeForm={this.saveCreateEmployeeForm}
           handleInputChange={this.handleInputChange}
         />

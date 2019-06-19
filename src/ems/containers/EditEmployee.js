@@ -5,12 +5,19 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 class EditEmployee extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      employeeDetail: {}
+      fullname: "",
+      phone: ""
     };
   }
+
+  handleInputChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
 
   componentDidMount() {
     const id = this.props.match.params.employeeId;
@@ -18,20 +25,45 @@ class EditEmployee extends Component {
     axios
       .get(`https://supremecourtreactapp.herokuapp.com/api/v1/contacts/${id}`)
       .then(function(response) {
-        self.setState({ employeeDetail: response.data.data });
+        const employeeDetail = response.data.data;
+        self.setState({
+          fullname: employeeDetail.fullname,
+          phone: employeeDetail.phone
+        });
       })
       .catch(function(error) {
         console.log(error);
       });
   }
 
+  updateCreateEmployeeForm = () => {
+    const { fullname, phone } = this.state;
+    let self = this;
+    const id = this.props.match.params.employeeId;
+    axios
+      .put(`https://supremecourtreactapp.herokuapp.com/api/v1/contacts/${id}`, {
+        fullname,
+        phone
+      })
+      .then(function(response) {
+        console.log(response);
+        self.props.history.push("/");
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
+
   render() {
-    console.log("STATE VALUE", this.state.employeeDetail);
-    const { employeeDetail } = this.state;
     return (
       <EmployeeWrapperStyle>
         <Link to="/"> List Employee</Link>
-        <CreateEmployeeForm isEdit={true} setValue={employeeDetail} />
+        <CreateEmployeeForm
+          isEdit={true}
+          setValue={this.state}
+          updateCreateEmployeeForm={this.updateCreateEmployeeForm}
+          handleInputChange={this.handleInputChange}
+        />
       </EmployeeWrapperStyle>
     );
   }
